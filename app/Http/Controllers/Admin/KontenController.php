@@ -10,7 +10,8 @@ class KontenController extends Controller
 {
     public function index()
     {
-        $konten = Konten::latest()->get();
+        $konten = Konten::where('key', 'about')->latest()->get();
+
         return view('Admin.konten.index', compact('konten'));
     }
 

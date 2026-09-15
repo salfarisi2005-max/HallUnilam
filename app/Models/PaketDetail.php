@@ -21,4 +21,9 @@ class PaketDetail extends Model
     {
         return $this->belongsTo(Fasilitas::class, 'fasilitas_id');
     }
+
+    public function paket()
+    {
+        return $this->belongsTo(Paket::class, 'paket_id');
+    }
 }

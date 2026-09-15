@@ -4,22 +4,11 @@
 @section('page-title', 'KELOLA MASTER FASILITAS')
 
 @section('sidebar-menu')
-    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition">
-        <i class="fa-solid fa-square-poll-vertical text-lg"></i>
-        <span>Dashboard</span>
-    </a>
-    <a href="{{ route('admin.fasilitas.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm bg-emerald-600 text-white shadow-md">
-        <i class="fa-solid fa-couch text-lg"></i>
-        <span>Kelola Fasilitas</span>
-    </a>
-    <a href="{{ route('admin.konten.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm text-slate-300 hover:bg-slate-800 hover:text-emerald-400 transition">
-        <i class="fa-solid fa-layer-group text-lg"></i>
-        <span>Kelola Paket & About</span>
-    </a>
+    @include('Admin.partials.sidebar', ['active' => 'fasilitas'])
 @endsection
 
 @section('content')
-    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+    <div class="bg-white rounded-3xl p-6 shadow-sm border border-teal-100">
         <div class="flex justify-between items-center mb-6">
             <div>
                 <h3 class="text-lg font-bold text-slate-800">Daftar Sarana Satuan</h3>
@@ -36,9 +25,9 @@
             </div>
         @endif
 
-        <div class="overflow-x-auto rounded-xl border border-slate-200">
+        <div class="overflow-x-auto rounded-2xl border border-teal-100 shadow-sm">
             <table class="w-full text-left text-sm">
-                <thead class="bg-slate-900 text-white">
+            <thead class="bg-teal-800 text-white">
                     <tr>
                         <th class="p-4 font-semibold">No</th>
                         <th class="p-4 font-semibold">Nama Fasilitas / Sarana</th>
@@ -47,9 +36,9 @@
                         <th class="p-4 font-semibold text-center">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-teal-50">
                     @forelse($fasilitas as $index => $item)
-                        <tr class="hover:bg-slate-50 transition">
+                        <tr class="odd:bg-white even:bg-teal-50/40 hover:bg-teal-100/60 transition">
                             <td class="p-4 font-medium text-slate-500">{{ $index + 1 }}</td>
                             <td class="p-4 font-bold text-slate-800">{{ $item->nama_fasilitas }}</td>
                             <td class="p-4 font-semibold text-emerald-600">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>

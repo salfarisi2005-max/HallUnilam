@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Fasilitas;
 use App\Models\Konten;
+use App\Models\Media;
+use App\Models\Paket;
+use App\Models\Pengaturan;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,7 +24,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
         ]);
 
         // 2. Seed Master Fasilitas Satuan
@@ -39,90 +42,73 @@ class DatabaseSeeder extends Seeder
             Fasilitas::create($data);
         }
 
-        // 3. Seed Konten Dinamis (About & Paket Pricing)
-        
-        // A. About Profil
+        // 3. Seed About Profil
         Konten::create([
             'key' => 'about',
             'judul' => 'Tentang La Tansa Hall',
-            'konten' => 'La Tansa Hall hadir di kota Rangkasbitung dengan menawarkan fasilitas untuk acara-acara seperti pernikahan, seminar, konser musik, family gathering, perpisahan sekolah, bulu tangkis, dan outbound. Didukung oleh fasilitas mumpuni dengan kapasitas gedung hingga 1.500 orang (dengan tempat duduk) atau 3.000 orang (tanpa tempat duduk).'
+            'konten' => 'La Tansa Hall hadir di kota Rangkasbitung dengan menawarkan fasilitas untuk acara-acara seperti pernikahan, seminar, konser musik, family gathering, perpisahan sekolah, bulu tangkis, dan outbound. Didukung oleh fasilitas mumpuni dengan kapasitas gedung hingga 1.500 orang (dengan tempat duduk) atau 3.000 orang (tanpa tempat duduk).',
         ]);
 
-        // B. Paket Pernikahan (JSON)
-        $paketPernikahan = [
-            'judul' => 'PAKET PERNIKAHAN (08.00 - 14.30 WIB)',
-            'headers' => ['Standar', 'Semi', 'Reguler', 'VIP', 'VVIP'],
-            'rows' => [
-                [
-                    'fasilitas' => 'Kapasitas Tamu',
-                    'standar' => '300 Pax',
-                    'semi' => '500 Pax',
-                    'reguler' => '700 Pax',
-                    'vip' => '1000 Pax',
-                    'vvip' => '1500 Pax'
-                ],
-                [
-                    'fasilitas' => 'Sewa Gedung & AC',
-                    'standar' => '✓',
-                    'semi' => '✓',
-                    'reguler' => '✓',
-                    'vip' => '✓',
-                    'vvip' => '✓'
-                ],
-                [
-                    'fasilitas' => 'Kursi Futura & Cover',
-                    'standar' => '100 Unit',
-                    'semi' => '200 Unit',
-                    'reguler' => '300 Unit',
-                    'vip' => '400 Unit',
-                    'vvip' => '500 Unit'
-                ],
-                [
-                    'fasilitas' => 'Harga Paket',
-                    'standar' => 'Rp 25.000.000',
-                    'semi' => 'Rp 35.000.000',
-                    'reguler' => 'Rp 45.000.000',
-                    'vip' => 'Rp 60.000.000',
-                    'vvip' => 'Rp 75.000.000'
-                ]
-            ]
+        // 4. Seed paket dalam bentuk record biasa, bukan JSON.
+        $paketData = [
+            ['nama_paket' => 'Paket Pernikahan Hall Unilam', 'jenis' => 'pernikahan', 'waktu' => '08.00 - 14.30 WIB', 'catatan' => null, 'items' => [
+                ['nama_item' => 'Kapasitas Tamu', 'tipe' => 'Standar', 'nilai' => '300 Pax'],
+                ['nama_item' => 'Kapasitas Tamu', 'tipe' => 'Semi', 'nilai' => '500 Pax'],
+                ['nama_item' => 'Kapasitas Tamu', 'tipe' => 'Reguler', 'nilai' => '700 Pax'],
+                ['nama_item' => 'Kapasitas Tamu', 'tipe' => 'VIP', 'nilai' => '1000 Pax'],
+                ['nama_item' => 'Kapasitas Tamu', 'tipe' => 'VVIP', 'nilai' => '1500 Pax'],
+                ['nama_item' => 'Harga Paket', 'tipe' => 'Standar', 'nilai' => 'Rp 25.000.000'],
+                ['nama_item' => 'Harga Paket', 'tipe' => 'Semi', 'nilai' => 'Rp 35.000.000'],
+                ['nama_item' => 'Harga Paket', 'tipe' => 'Reguler', 'nilai' => 'Rp 45.000.000'],
+                ['nama_item' => 'Harga Paket', 'tipe' => 'VIP', 'nilai' => 'Rp 60.000.000'],
+                ['nama_item' => 'Harga Paket', 'tipe' => 'VVIP', 'nilai' => 'Rp 75.000.000'],
+            ]],
+            ['nama_paket' => 'Paket Seminar', 'jenis' => 'seminar', 'waktu' => '08.00 - 15.30 WIB / 08.00 - 12.00 WIB / 13.00 - 17.00 WIB', 'catatan' => 'Semua paket seminar sudah termasuk Projector, Screen, Sound System, dan 100 Kursi Futura.', 'items' => [
+                ['nama_item' => 'Full Day (08.00 - 15.30 WIB)', 'nilai' => 'Rp 7.500.000'],
+                ['nama_item' => 'Half Day (08.00 - 12.00 WIB)', 'nilai' => 'Rp 4.500.000'],
+                ['nama_item' => 'Half Day (13.00 - 17.00 WIB)', 'nilai' => 'Rp 4.500.000'],
+            ]],
+            ['nama_paket' => 'Paket Perpisahan Sekolah', 'jenis' => 'perpisahan', 'waktu' => '08.00 - 13.30 WIB', 'catatan' => null, 'items' => [
+                ['nama_item' => 'Paket Perpisahan SMA / Sederajat', 'nilai' => 'Rp 10.000.000'],
+                ['nama_item' => 'Paket Perpisahan SMP / SD / TK', 'nilai' => 'Rp 8.000.000'],
+            ]],
         ];
 
-        Konten::create([
-            'key' => 'paket_pernikahan',
-            'judul' => 'Paket Pernikahan Hall Unilam',
-            'konten' => json_encode($paketPernikahan, JSON_PRETTY_PRINT)
-        ]);
+        foreach ($paketData as $urutan => $data) {
+            $items = $data['items'];
+            unset($data['items']);
+            $paket = Paket::create($data + ['amount' => 0, 'urutan' => $urutan, 'aktif' => true]);
+            foreach ($items as $itemUrutan => $item) {
+                $paket->items()->create($item + ['urutan' => $itemUrutan, 'aktif' => true]);
+            }
+        }
 
-        // C. Paket Seminar (JSON)
-        $paketSeminar = [
-            'items' => [
-                ['tipe' => 'Full Day (08.00 - 15.30 WIB)', 'harga' => 'Rp 7.500.000'],
-                ['tipe' => 'Half Day (08.00 - 12.00 WIB)', 'harga' => 'Rp 4.500.000'],
-                ['tipe' => 'Half Day (13.00 - 17.00 WIB)', 'harga' => 'Rp 4.500.000']
-            ],
-            'catatan' => 'Semua paket seminar sudah termasuk Projector, Screen, Sound System, dan 100 Kursi Futura.'
-        ];
+        // 5. Seed media awal dan pengaturan yang dapat diedit di dashboard.
+        foreach ([
+            ['BagianDalamHall.jpeg', 'Interior Utama Hall'], ['dalamBagianDepanHall.jpeg', 'Panggung Hall'], ['halamanDepanHall.jpeg', 'Halaman Depan Hall'],
+            ['halamanLuarHall.jpeg', 'Halaman Luar Hall'], ['halamanSampingHall.jpeg', 'Halaman Samping Hall'], ['halamanBelakangHall.jpeg', 'Halaman Belakang Hall'],
+        ] as $urutan => [$path, $judul]) {
+            Media::firstOrCreate(['jenis' => 'hero', 'path' => 'images/'.$path], ['judul' => $judul, 'alt' => $judul, 'urutan' => $urutan, 'aktif' => true]);
+        }
 
-        Konten::create([
-            'key' => 'paket_seminar',
-            'judul' => 'Paket Seminar',
-            'konten' => json_encode($paketSeminar, JSON_PRETTY_PRINT)
-        ]);
+        foreach ([['halamanDepanHall.jpeg', 'Foyer & Pintu Utama'], ['BagianDalamHall.jpeg', 'Interior Utama Hall'], ['dalamBagianDepanHall.jpeg', 'Panggung & Karpet Merah']] as $urutan => [$path, $caption]) {
+            Media::firstOrCreate(['jenis' => 'galeri', 'path' => 'images/'.$path], ['judul' => $caption, 'caption' => $caption, 'alt' => $caption, 'urutan' => $urutan, 'aktif' => true]);
+        }
 
-        // D. Paket Perpisahan Sekolah (JSON)
-        $paketPerpisahan = [
-            'waktu' => '08.00 - 13.30 WIB',
-            'items' => [
-                ['tipe' => 'Paket Perpisahan SMA / Sederajat', 'harga' => 'Rp 10.000.000'],
-                ['tipe' => 'Paket Perpisahan SMP / SD / TK', 'harga' => 'Rp 8.000.000']
-            ]
-        ];
-
-        Konten::create([
-            'key' => 'paket_perpisahan',
-            'judul' => 'Paket Perpisahan Sekolah',
-            'konten' => json_encode($paketPerpisahan, JSON_PRETTY_PRINT)
-        ]);
+        foreach ([
+            'hero_lokasi' => 'Rangkasbitung, Banten',
+            'hero_deskripsi' => 'Panggung serbaguna dengan kapasitas 1.500-2.500 untuk Pernikahan, Seminar, Konser, Gathering, dan Perpisahan Sekolah.',
+            'hero_tombol' => 'Lihat Katalog Paket Pricing',
+            'whatsapp_nomor' => '6281234567890',
+            'whatsapp_nama' => 'Bu Euis (WhatsApp Official)',
+            'whatsapp_pesan' => 'Halo Bu Euis, saya ingin sewa La Tansa Hall Unilam',
+            'instagram_hall' => 'https://www.instagram.com/latansa_hall?igsh=M3N4cXpjMjQwMnl1',
+            'instagram_unilam' => 'https://www.instagram.com/unilam.official?igsh=eHhseWMzZjVibTFu',
+            'facebook_url' => '',
+            'tiktok_url' => '',
+            'youtube_url' => '',
+        ] as $key => $value) {
+            Pengaturan::updateOrCreate(['key' => $key], ['value' => $value]);
+        }
     }
 }

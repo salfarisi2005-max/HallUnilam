@@ -3,6 +3,10 @@
 @section('title', 'Edit Konten')
 @section('page-title', 'EDIT KONTEN WEBSITE')
 
+@section('sidebar-menu')
+    @include('Admin.partials.sidebar', ['active' => 'konten'])
+@endsection
+
 @section('content')
     <div class="max-w-3xl bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
         <form action="{{ route('admin.konten.update', $konten->id) }}" method="POST" class="space-y-4">
@@ -20,8 +24,8 @@
             </div>
 
             <div>
-                <label class="block text-xs font-semibold text-slate-600 mb-1">Isi Konten (Format Teks / JSON)</label>
-                <textarea name="konten" rows="10" required class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-600">{{ $konten->konten }}</textarea>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Isi Tentang</label>
+                <textarea name="konten" rows="10" required class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">{{ $konten->konten }}</textarea>
             </div>
 
             <div class="flex gap-3 pt-4">

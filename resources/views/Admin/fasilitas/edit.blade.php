@@ -3,6 +3,10 @@
 @section('title', 'Edit Fasilitas')
 @section('page-title', 'UBAH FASILITAS')
 
+@section('sidebar-menu')
+    @include('Admin.partials.sidebar', ['active' => 'fasilitas'])
+@endsection
+
 @section('content')
     <div class="max-w-2xl bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
         <!-- PERBAIKAN: Gunakan array ['fasilitas' => $fasilitas->id] -->

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Tansa Hall - Universitas La Tansa Mashiro</title>
+    <title>Unilam Hall - Universitas La Tansa Mashiro</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans">
@@ -12,7 +12,7 @@
     <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <span class="text-xl font-bold text-blue-900">LA TANSA HALL</span>
+                <span class="text-xl font-bold text-blue-900">UNILAM HALL</span>
                 <span class="text-xs text-slate-500 hidden md:inline">Universitas La Tansa Mashiro</span>
             </div>
             <div class="flex gap-6 text-sm font-semibold text-slate-600">
@@ -50,7 +50,7 @@
 
             <div class="overflow-x-auto rounded-xl border border-slate-200">
                 <table class="w-full text-left text-sm">
-                    <thead class="bg-slate-900 text-white">
+                    <thead class="bg-teal-800 text-white">
                         <tr>
                             <th class="p-3.5 font-semibold">Fasilitas / Uraian</th>
                             @foreach($pernikahan['headers'] ?? [] as $header)
@@ -58,9 +58,9 @@
                             @endforeach
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-200">
+                    <tbody class="divide-y divide-teal-50">
                         @foreach($pernikahan['rows'] ?? [] as $row)
-                            <tr class="hover:bg-slate-50 transition">
+                            <tr class="odd:bg-white even:bg-teal-50/40 hover:bg-teal-100/60 transition">
                                 <td class="p-3.5 font-semibold text-slate-700">{{ $row['fasilitas'] }}</td>
                                 <td class="p-3.5 text-center text-slate-600">{{ $row['standar'] }}</td>
                                 <td class="p-3.5 text-center text-slate-600">{{ $row['semi'] }}</td>

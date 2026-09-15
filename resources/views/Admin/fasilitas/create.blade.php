@@ -3,6 +3,10 @@
 @section('title', 'Tambah Fasilitas')
 @section('page-title', 'TAMBAH FASILITAS BARU')
 
+@section('sidebar-menu')
+    @include('Admin.partials.sidebar', ['active' => 'fasilitas'])
+@endsection
+
 @section('content')
     <div class="max-w-2xl bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
         <form action="{{ route('admin.fasilitas.store') }}" method="POST" class="space-y-4">
