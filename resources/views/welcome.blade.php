@@ -39,6 +39,20 @@
             -webkit-backdrop-filter: blur(18px);
         }
 
+        .site-header {
+            background: rgba(255, 255, 255, .68);
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            border-color: rgba(204, 251, 241, .58);
+            box-shadow: 0 8px 24px rgba(15, 118, 110, .08);
+        }
+
+        .site-header.is-scrolled {
+            background: rgba(255, 255, 255, .48);
+            border-color: rgba(204, 251, 241, .38);
+            box-shadow: 0 12px 30px rgba(15, 118, 110, .14);
+        }
+
         .instagram-brand {
             background: linear-gradient(45deg, #feda75 0%, #fa7e1e 25%, #d62976 50%, #962fbf 75%, #4f5bd5 100%);
         }
@@ -66,12 +80,12 @@
 <body class="bg-teal-50 text-teal-950 font-sans antialiased selection:bg-teal-600 selection:text-white">
 
     <!-- Header Navbar -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-teal-100 shadow-sm shadow-teal-900/5 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+    <header x-data="{ scrolled: false }" @scroll.window.passive="scrolled = window.scrollY > 24" :class="{ 'is-scrolled': scrolled }" class="site-header fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center transition-all duration-300" :class="scrolled ? 'py-2' : 'py-3'">
             
             <!-- Logo & Brand Header -->
             <a href="#hero" class="flex items-center gap-3 group">
-                <div class="w-14 h-14 bg-white p-1.5 rounded-full shadow-lg shadow-teal-900/15 flex items-center justify-center transition">
+                <div class="w-14 h-14 bg-white/90 p-1.5 rounded-full shadow-lg shadow-teal-900/15 flex items-center justify-center transition-all duration-300" :class="scrolled ? 'scale-90' : ''">
                     <img src="{{ asset('images/logo-HallUnilam.png') }}" alt="Logo Hall Unilam" class="w-full h-full object-contain rounded-full">
                 </div>
                 <div>
